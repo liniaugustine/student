@@ -1,0 +1,55 @@
+{% extends 'index.html'%}
+{% load static %} {% block content %} 
+
+<head>
+    
+    <style>
+        body{
+            background: linear-gradient(rgb(25, 241, 194), rgb(1, 20, 29));
+            background-repeat: no-repeat;
+           
+        }
+        .card{
+            background:linear-gradient( rgba(0,0,0,0.7),
+            rgba(0,0,0,0.7));
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="mt-5">
+                    <form action="login" method="POST" class="mb-5">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <img src="{% static 'images/login2.png' %}" alt="loginimg" class="rounded-circle" style="height: 100px">
+                                </div><br>
+                                <div class="form-group">
+                                    <strong id="ulabel" style="color: red">{{ msg }}</strong>
+                                    <input type="text" name="uname" id="uname" class="form-control" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                <a  class="" href="#">Forgot Password?</a><br>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="btn btn-block btn-primary">
+                                        <a style="overflow: hidden; text-decoration: none;" class="text-white" href="cracc">Create an account</button></a>
+                                </div><br>
+                            </div>
+                        </div>
+                    </form>       
+                </div><br>
+            </div>
+        </div>
+    </div>
+    {% endblock %}  
+</body>
+</html>

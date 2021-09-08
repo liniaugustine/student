@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Account</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!--ajax-->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> <!--validation-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--icon library-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <!--bootstrap-->
+    <style>
+        .container-fluid{
+            background: linear-gradient(rgba(1, 1, 44, 0.801), rgb(1, 20, 29))
+        }
+        .card{
+            background:linear-gradient( rgba(0,0,0,0.7),
+            rgba(0,0,0,0.7));
+            opacity: 0.8;
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+            <nav class="navbar navbar-dark bg-dark">
+                    <a class="navbar-brand" href="firstpg"><i class="fa fa-home"></i> Home</a>
+                    {% if 'aid' in request.session %}
+                        <a class="nav-link text-white" href="admin">Adminpage</a> 
+                    {% endif %}     
+                    <form class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-success my-2 my-sm-0 text-dark" type="submit"><a href="login">Login</a></button>
+                    </form>
+                     
+                </nav><br>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card">  
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">    
+                            <h2 class="text-center text-white">Student Registration</h2>
+                        </div>
+                        <form action="cracc" class="mb-3" id="valform" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name" class="text-white">Name</label>
+                                <input type="text" name="name" id="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                    <label for="email" class="text-white">Contact</label>
+                                    <input type="text" name="contact" id="contact" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                    <label for="email" class="text-white">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                    <label for="email" class="text-white">Username</label>
+                                    <strong id="ulabel" class="text-danger"></strong>
+                                    <input type="text" name="uname" id="uname" class="form-control">
+                            </div>
+                            <div class="form-group ">
+                                <label for="password" class="text-white">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group ">
+                                <label for="cpassword" class="text-white">Confirm Password</label>
+                                <input type="password" name="cpassword" id="cpassword" class="form-control">
+                            </div>
+                            <button class="btn btn-primary btn-lg mt-3">Register</button>
+                            <strong style="color: red;">{{msg}}</strong>
+                        </form>   <br> 
+                    </div>
+                </div><br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*Jquery validation */
+        $(document).ready(function(){
+            jQuery.validator.addMethod("noSpace", function(value, element)
+                { 
+                    return (value.indexOf(" ")<0) || (value.trim()==value);});
+            
+            $('#valform').validate({
+                rules:{
+                    name:{
+                        required: true,
+                        noSpace: true
+                    },
+                    contact:{
+                        required:true,
+                        noSpace:true,
+                        number: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    email:{
+                        required: true,
+                        email: true
+                    },
+                    uname:{
+                        required:true,
+                        noSpace:true
+                    },
+                    password:{
+                        required: true,
+                        minlength:5,
+                        noSpace: true
+                    },
+                    cpassword:{
+                        required: true,
+                        equalTo: '#password',
+                        minlength:5,
+                        noSpace: true
+                    }
+                },
+                messages:{
+                    name: {
+                        noSpace:'Whitespace not allowed'
+                    },
+                    contact:{
+                        number:'Enter valid cantact number',
+                        noSpace:'Enter valid cantact number'
+                    },
+                    email: 'Enter a valid email',
+                    uname:'Enter a valid username',
+                    password: {
+                        minlength: 'password must be atleast 5 characters',
+                        noSpace: 'Enter a valid password'
+                    },
+                    cpassword: {
+                        minlength: 'password must match',
+                        equalTo: 'password must match',
+                        noSpace: 'Enter a valid password'
+                    }
+                },
+            submitHandler: function(form){
+                form.submit();
+            }
+
+            })
+        });
+    </script>
+    <script>
+    $(document).ready(function(){
+            $('#uname').blur(function(){
+                usname=$('#uname').val()
+                $.ajax({
+                    url:'cracc2',
+                    type:'GET',
+                    data:{
+                        'uname':usname
+                    },
+                    success:function(response){
+                        if(response.msg){
+                            $('#ulabel').html('Username already exists')
+                        }
+                        else{
+                            $('#ulabel').html("")
+                        }
+                    }
+                })
+            })
+        });
+    </script>
+</body>
+</html>

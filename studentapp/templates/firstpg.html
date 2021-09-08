@@ -1,0 +1,32 @@
+{% extends 'index.html'%}
+{% load static %} {% block content %} 
+
+<head>
+    <style>
+    .login{
+        border: 1px solid;
+        background-color: rgb(2, 2, 29);
+        width: 400px;
+    }
+    
+    body{
+        background-color: lightgrey;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{% static 'images/student.jpg' %}" alt="img" height="600px" width="100%">
+            </div>
+            <div class="col-md-6 logincol">
+                <a href="login"><h3 class="mt-4 login text-white p-3 text-center">Student Login</h3></a>
+                <a href="alogin"><h3 class="mt-3 login text-white p-3 text-center">Admin Login</h3></a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}  
+</body>
+</html>

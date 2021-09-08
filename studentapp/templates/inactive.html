@@ -1,0 +1,32 @@
+{% extends 'adminmaster.html'%}
+{% load static %} {% block content %} 
+<head>
+        <title>Inactive students</title>
+    </head>
+    <body>
+       <div class="container-fluid">
+           <table class="table table-striped">
+                <h4 class="text-center">Inactive Students</h4>
+                <thead>
+                    <tr>
+                       <th>ID</th>
+                       <th>Username</th>
+                       <th>Name</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    {% for stud in inactive %} 
+                   <tr>
+                       <td>{{stud.id}}</td>
+                       <td></td>
+                       <td>{{stud.name}}</td>
+                       <td><a href="{%url 'activate' stud.id %}"><button class="btn btn-info">Activate</button></a></td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div> 
+    
+    
+    {% endblock %}
+    </body>

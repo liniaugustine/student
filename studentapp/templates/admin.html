@@ -1,0 +1,36 @@
+{% extends 'adminmaster.html'%}
+{% load static %} {% block content %} 
+
+<head>
+    <title>Adminpage</title>
+    
+    <style>
+        .adminfn{
+            background-color: rgb(21, 188, 218);
+            border: 1px solid grey;
+            border-radius: 10px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <h3 class="m-2">{{admin.ausername}}<br><h5 class="m-2">(Admin)</h5></h3>
+                <a href="#" class="m-3"><i class="fa fa-lock"></i> Change Password</a>
+            </div>
+            <div class="col-md-3">
+                <a href="cracc" class="text-dark"><h4 class="adminfn m-4 p-4"><i class="fa fa-user"></i> Add Student</h4></a>
+            </div>
+            <div class="col-md-3">
+                    <a href="active" class="text-dark"><h4 class="adminfn m-4 p-3">View Active Student</h4></a>
+            </div>
+            <div class="col-md-3">
+                    <a href="inactive" class="text-dark"><h4 class="adminfn m-4 p-3">View Inactive Student</h4></a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
